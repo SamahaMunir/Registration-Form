@@ -1,44 +1,60 @@
-<form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
-<div>
-  <label for="name">Name:</label>
-  <input id="name" formControlName="name" type="text" />
-  <div *ngIf="studentForm.get('name')?.touched && studentForm.get('name')?.invalid">
-    <small *ngIf="studentForm.get('name')?.errors?.['required']">Name is required.</small>
-    <small *ngIf="studentForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters long.</small>
+<main class="main">
+  <div class="content">
+    <div class="left-side">
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <!-- Name Field -->
+        <div>
+          <label for="name">Name:</label>
+          <input id="name" formControlName="name" />
+          <div *ngIf="registrationForm.get('name')?.invalid && registrationForm.get('name')?.touched">
+            <small *ngIf="registrationForm.get('name')?.errors?.['required']">Name is required.</small>
+            <small *ngIf="registrationForm.get('name')?.errors?.['minlength']">
+              Name must be at least 3 characters long.
+            </small>
+          </div>
+        </div>
+
+        <!-- Age Field -->
+        <div>
+          <label for="age">Age:</label>
+          <input id="age" formControlName="age" type="number" />
+          <div *ngIf="registrationForm.get('age')?.invalid && registrationForm.get('age')?.touched">
+            <small *ngIf="registrationForm.get('age')?.errors?.['required']">Age is required.</small>
+            <small *ngIf="registrationForm.get('age')?.errors?.['min']">
+              Age must be at least 18.
+            </small>
+            <small *ngIf="registrationForm.get('age')?.errors?.['max']">
+              Age must be under 60.
+            </small>
+          </div>
+        </div>
+
+        <!-- Email Field -->
+        <div>
+          <label for="email">Email:</label>
+          <input id="email" formControlName="email" type="email" />
+          <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched">
+            <small *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required.</small>
+            <small *ngIf="registrationForm.get('email')?.errors?.['email']">Enter a valid email.</small>
+          </div>
+        </div>
+
+        <!-- Course Field -->
+        <div>
+          <label for="course">Course:</label>
+          <input id="course" formControlName="course" />
+
+          <div *ngIf="registrationForm.get('course')?.invalid && registrationForm.get('course')?.touched">
+            <small *ngIf="registrationForm.get('course')?.errors?.['required']">Course is required.</small>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" [disabled]="registrationForm.invalid">Register</button>
+      </form>
+
+    </div>
   </div>
-</div>
+</main>
 
-<div>
-  <label for="age">Age:</label>
-  <input id="age" formControlName="age" type="number" />
-  <div *ngIf="studentForm.get('age')?.touched && studentForm.get('age')?.invalid">
-    <small *ngIf="studentForm.get('age')?.errors?.['required']">Age is required.</small>
-    <small *ngIf="studentForm.get('age')?.errors?.['min']">Age must be at least 18.</small>
-  </div>
-</div>
-
-<div>
-  <label for="email">Email:</label>
-  <input id="email" formControlName="email" type="email" />
-  <div *ngIf="studentForm.get('email')?.touched && studentForm.get('email')?.invalid">
-    <small *ngIf="studentForm.get('email')?.errors?.['required']">Email is required.</small>
-    <small *ngIf="studentForm.get('email')?.errors?.['email']">Enter a valid email.</small>
-  </div>
-</div>
-
-<div>
-  <label for="course">Course:</label>
-  <select id="course" formControlName="course">
-    <option value="" disabled>Select a course</option>
-    <option value="course1">Course 1</option>
-    <option value="course2">Course 2</option>
-    <option value="course3">Course 3</option>
-  </select>
-  <div *ngIf="studentForm.get('course')?.touched && studentForm.get('course')?.invalid">
-    <small *ngIf="studentForm.get('course')?.errors?.['required']">Course is required.</small>
-  </div>
-</div>
-
-<button type="submit" [disabled]="studentForm.invalid">Register</button>
-</form>
-
+<router-outlet />
